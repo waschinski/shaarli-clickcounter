@@ -16,21 +16,21 @@ class ClickcounterController extends ShaarliAdminController
      */
     public function index(Request $request, Response $response, array $args): Response
     {
-	if (!array_key_exists('id', $args) || !$this->container->bookmarkService->exists((int) $args['id'])) {
+        if (!array_key_exists('id', $args) || !$this->container->bookmarkService->exists((int) $args['id'])) {
             $this->saveErrorMessage('Invalid ID provided.');
             return $this->redirectFromReferer($request, $response, ['clickcounter']);
-	}
+        }
 
-	$clickData = FileUtils::readFlatDB($this->container->conf->get('resource.data_dir') . '/clickcounter.php', []);
-	if (!array_key_exists($args['id'], $clickData)) {
+        $clickData = FileUtils::readFlatDB($this->container->conf->get('resource.data_dir') . '/clickcounter.php', []);
+        if (!array_key_exists($args['id'], $clickData)) {
             $clickData[$args['id']] = 1;
-	}
-	else {
+        }
+        else {
             $clickData[$args['id']]++;
-	}
-	FileUtils::writeFlatDB($this->container->conf->get('resource.data_dir') . '/clickcounter.php', $clickData);
+        }
+        FileUtils::writeFlatDB($this->container->conf->get('resource.data_dir') . '/clickcounter.php', $clickData);
 
-	$bookmark = $this->container->bookmarkService->get((int) $args['id']);
+        $bookmark = $this->container->bookmarkService->get((int) $args['id']);
         return $response->withRedirect($bookmark->getUrl());
     }
 }
