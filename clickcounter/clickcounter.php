@@ -32,7 +32,10 @@ function hook_clickcounter_render_linklist(array $data, ConfigManager $conf): ar
 	}
 	$clickData = FileUtils::readFlatDB($conf->get('resource.data_dir') . '/clickcounter.php', []);
 	if (array_key_exists($value['id'], $clickData)) {
-            $value['link_plugin'][] = $clickData[$value['id']] . ' clicks';
+            $value['link_plugin'][] = sprintf(
+                ($clickData[$value['id']] > 1 ? t('%u clicks') : t('%u click')),
+                $clickData[$value['id']]
+            );
 	}
     }
     return $data;
@@ -67,3 +70,8 @@ function hook_clickcounter_delete_link(array $data, ConfigManager $conf)
     }
 }
 
+function clickcounter_dummy_translation()
+{
+    t('%u click');
+    t('%u clicks');
+}
