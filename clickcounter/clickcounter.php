@@ -26,17 +26,17 @@ function clickcounter_register_routes(): array
 
 function hook_clickcounter_render_linklist(array $data, ConfigManager $conf): array
 {
+    $clickData = FileUtils::readFlatDB($conf->get('resource.data_dir') . '/clickcounter.php', []);
     foreach ($data['links'] as &$value) {
         if (strpos($value['real_url'], 'http') === 0) {
             $value['real_url'] = $data['_BASE_PATH_'] . '/plugin/clickcounter/' . $value['id'];
-	}
-	$clickData = FileUtils::readFlatDB($conf->get('resource.data_dir') . '/clickcounter.php', []);
-	if (array_key_exists($value['id'], $clickData)) {
+        }
+    if (array_key_exists($value['id'], $clickData)) {
             $value['link_plugin'][] = sprintf(
                 ($clickData[$value['id']] > 1 ? t('%u clicks') : t('%u click')),
                 $clickData[$value['id']]
             );
-	}
+        }
     }
     return $data;
 }
