@@ -17,10 +17,10 @@ function clickcounter_register_routes(): array
 {
     return [
         [
-	    'method' => 'GET',
-	    'route' => '/{id}',
-	    'callable' => 'Shaarli\Plugin\Clickcounter\ClickcounterController:index',
-	],
+            'method' => 'GET',
+            'route' => '/{id}',
+            'callable' => 'Shaarli\Plugin\Clickcounter\ClickcounterController:index',
+        ],
     ];
 }
 
@@ -31,7 +31,7 @@ function hook_clickcounter_render_linklist(array $data, ConfigManager $conf): ar
         if (strpos($value['real_url'], 'http') === 0) {
             $value['real_url'] = $data['_BASE_PATH_'] . '/plugin/clickcounter/' . $value['id'];
         }
-    if (array_key_exists($value['id'], $clickData)) {
+        if (array_key_exists($value['id'], $clickData)) {
             $value['link_plugin'][] = sprintf(
                 ($clickData[$value['id']] > 1 ? t('%u clicks') : t('%u click')),
                 $clickData[$value['id']]
