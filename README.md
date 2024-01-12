@@ -13,3 +13,6 @@ A demo can be found on https://metaref.link.
 The clickcounter data resides in the `data` folder of your Shaari installation in a file called `clickcounter.php` so your data should be contained in your regular Shaari backup.
 
 See [Backup & Restore](https://shaarli.readthedocs.io/en/master/Backup-and-restore.html) in the Shaari documentation for details.
+
+## Reset
+If you would like to reset the click counters simply delete the `clickcounter.php` file from the `data` folder of your Shaari installation.
